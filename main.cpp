@@ -1,22 +1,22 @@
 #include <iostream>
-#include <SDL.h>
+#include "Game.h"
 using std::cout;
 using std::endl;
 
+Game *game = nullptr;
 
 int main(int argc, char* argv[]) {
-    cout << "Hello, World!" << endl;
-    SDL_Init(SDL_INIT_EVERYTHING);
+    game = new Game();
 
-    SDL_Window *sdlWindow = SDL_CreateWindow("FirstFrame",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,800,800, SDL_WINDOW_SHOWN);
+    game->init("C++ Oyunkee", SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED, 800, 600, false);
 
-    SDL_Renderer *sdlRenderer = SDL_CreateRenderer(sdlWindow, -1 , 0 );
+    while (game->running()){
+        game->handleEvents();
+        game->update();
+        game->render();
+    }
 
-    SDL_SetRenderDrawColor(sdlRenderer, 0 , 255 , 255 ,0);
-    SDL_RenderClear(sdlRenderer);
-    SDL_RenderPresent(sdlRenderer);
-
-    SDL_Delay(3000);
+    game->clean();
 
     return 0;
 }
