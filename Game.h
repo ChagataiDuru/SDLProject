@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <SDL.h>
+#include <SDL_image.h>
+#include "libtcod.hpp"
 
 class Game{
 

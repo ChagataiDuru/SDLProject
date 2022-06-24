@@ -3,6 +3,10 @@
 using std::cout;
 using std::endl;
 
+SDL_Texture* playerTexture;
+SDL_Rect srcR, DestR;
+
+
 Game::Game()
 {}
 Game::~Game()
@@ -25,26 +29,32 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
             cout << "Window Created!" << endl;
         }
 
-        renderer = SDL_CreateRenderer(window, -1, 0);
+        renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
         if (renderer)
         {
-            SDL_SetRenderDrawColor(renderer, 255, 255 ,0 , 255);
+            SDL_SetRenderDrawColor(renderer, 255, 255 ,255 , 255);
             cout << "Renderer Created!" << endl;
         }
         isRunning = true;
     } else{ isRunning = false; }
 
+    SDL_Surface* tmpSurface = IMG_Load("Assets/player.png");
+    playerTexture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
+    SDL_FreeSurface(tmpSurface);
 
 }
 
 void Game::update() {
     cnt++;
-    cout << cnt << endl;
+    DestR.h = 64;
+    DestR.w = 64;
 }
 
 void Game::render() {
     SDL_RenderClear(renderer);
     // Add here to render things
+    SDL_RenderCopy(renderer, playerTexture,NULL,NULL);
+
     SDL_RenderPresent(renderer);
 }
 
