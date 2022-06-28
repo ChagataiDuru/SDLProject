@@ -4,7 +4,7 @@ using std::cout;
 using std::endl;
 
 SDL_Texture* playerTexture;
-SDL_Rect srcR, DestR;
+SDL_Rect* srcR, DestR;
 
 
 Game::Game()
@@ -46,14 +46,15 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 
 void Game::update() {
     cnt++;
-    DestR.h = 64;
-    DestR.w = 64;
+    DestR.h = 128;
+    DestR.w = 128;
+    DestR.x = cnt;
 }
 
 void Game::render() {
     SDL_RenderClear(renderer);
     // Add here to render things
-    SDL_RenderCopy(renderer, playerTexture,NULL,NULL);
+    SDL_RenderCopy(renderer, playerTexture,NULL,&DestR);
 
     SDL_RenderPresent(renderer);
 }
